@@ -1,41 +1,48 @@
 import React, { useState } from 'react';
 
-// Reusable image with loading shimmer and graceful fallback
-export default function Image({ src, alt, className = '', rounded = true }) {
-  const [loaded, setLoaded] = useState(false);
-  const [errored, setErrored] = useState(false);
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ');
+}
 
-  if (!src || errored) {
-    return (
-      <div
-        className={
-          (rounded ? 'rounded-xl ' : '') +
-          'w-full h-full bg-neutral-200 flex items-center justify-center text-neutral-500'
-        }
-        aria-label={alt}
-        role="img"
-      >
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-          <circle cx="8.5" cy="8.5" r="1.5"></circle>
-          <path d="M21 15l-5-5L5 21"></path>
-        </svg>
-      </div>
-    );
-  }
+export default function Image({ src, alt, className = '', rounded = 'rounded-xl', fallback = null }) {
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
+
+  const handleLoad = () => setLoaded(true);
+  const handleError = () => setError(true);
+
+  const fallbackNode = fallback ?? (
+    <div
+      className={classNames(
+        'flex items-center justify-center bg-neutral-100 text-neutral-400',
+        rounded,
+        'aspect-[4/3] w-full'
+      )}
+    >
+      <span className="text-sm">Afbeelding niet beschikbaar</span>
+    </div>
+  );
 
   return (
-    <div className={`relative overflow-hidden ${rounded ? 'rounded-xl' : ''}`}>
-      {!loaded && (
-        <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-neutral-200 via-neutral-100 to-neutral-200" />
+    <div className={classNames('relative overflow-hidden', rounded, className)}>
+      {!loaded && !error && (
+        <div className="absolute inset-0 animate-pulse bg-neutral-100" />
       )}
-      <img
-        src={src}
-        alt={alt}
-        className={`block ${className}`}
-        onLoad={() => setLoaded(true)}
-        onError={() => setErrored(true)}
-      />
+      {error ? (
+        fallbackNode
+      ) : (
+        <img
+          src={src}
+          alt={alt}
+          onLoad={handleLoad}
+          onError={handleError}
+          className={classNames(
+            'h-full w-full object-cover transition-opacity duration-500',
+            loaded ? 'opacity-100' : 'opacity-0',
+            rounded
+          )}
+        />
+      )}
     </div>
   );
 }

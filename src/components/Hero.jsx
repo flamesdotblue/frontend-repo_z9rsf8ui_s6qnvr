@@ -1,61 +1,47 @@
 import React from 'react';
-import { siteContent } from '../data/content';
 import Image from './Image';
 
-export default function Hero({ onCTAClick }) {
+export default function Hero() {
+  const handleScroll = (e) => {
+    e.preventDefault();
+    const el = document.querySelector('#projecten');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
-    <section id="home" className="relative">
-      <div className="relative h-[60vh] sm:h-[70vh] w-full overflow-hidden rounded-b-3xl">
-        <Image
-          src={siteContent.hero.image}
-          alt="Vakmanschap in uitvoering"
-          className="h-full w-full object-cover"
-          rounded={false}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 flex items-end">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-12">
-            <h1 className="text-white text-3xl sm:text-5xl font-semibold max-w-3xl">
-              {siteContent.hero.heading}
-            </h1>
-            <p className="mt-4 text-white/90 max-w-2xl">
-              {siteContent.hero.subheading}
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <button
-                onClick={() => onCTAClick?.('contact')}
-                className="inline-flex items-center rounded-md bg-white text-neutral-900 px-4 py-2 font-medium hover:bg-neutral-100"
-              >
-                {siteContent.hero.ctaPrimary}
-              </button>
-              <button
-                onClick={() => onCTAClick?.('projecten')}
-                className="inline-flex items-center rounded-md bg-neutral-900 text-white px-4 py-2 font-medium hover:bg-neutral-800"
-              >
-                {siteContent.hero.ctaSecondary}
-              </button>
-            </div>
+    <section id="home" className="relative overflow-hidden">
+      <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 md:grid-cols-2 md:py-24">
+        <div>
+          <h1 className="text-4xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
+            Vakmanschap in elke verbouwing
+          </h1>
+          <p className="mt-4 max-w-prose text-neutral-600">
+            Wij realiseren hoogwaardige renovaties en nieuwbouwprojecten met aandacht voor detail. Van ontwerp tot oplevering – één aanspreekpunt, duidelijke planning.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href="#projecten"
+              onClick={handleScroll}
+              className="rounded-lg bg-neutral-900 px-4 py-2 text-white shadow-sm hover:bg-neutral-800"
+            >
+              Bekijk projecten
+            </a>
+            <a
+              href="#contact"
+              className="rounded-lg border border-neutral-300 px-4 py-2 text-neutral-900 hover:bg-neutral-50"
+            >
+              Vrijblijvend gesprek
+            </a>
           </div>
         </div>
-      </div>
-
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="-mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="rounded-2xl bg-white p-6 shadow border border-neutral-200">
-            <h2 className="text-xl font-semibold mb-3">{siteContent.about.title}</h2>
-            <p className="text-neutral-700 leading-relaxed">{siteContent.about.text}</p>
-            <p className="text-neutral-700 leading-relaxed mt-3">{siteContent.about.extra}</p>
-          </div>
-          <div className="grid grid-cols-3 gap-3">
-            {siteContent.about.serviceImages.map((src, idx) => (
-              <div
-                key={idx}
-                className={(idx === 1 ? 'col-span-2 ' : '') + 'overflow-hidden rounded-2xl border border-neutral-200'}
-              >
-                <Image src={src} alt="Service" className="h-48 w-full object-cover" />
-              </div>
-            ))}
-          </div>
+        <div className="relative">
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/0 via-white/20 to-white/60" />
+          <Image
+            src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1600&auto=format&fit=crop"
+            alt="Renovatieproject"
+            className="aspect-[4/3]"
+            rounded="rounded-2xl"
+          />
         </div>
       </div>
     </section>
