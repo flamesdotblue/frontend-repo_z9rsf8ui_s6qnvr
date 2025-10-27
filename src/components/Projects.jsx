@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { projects as allProjects, TAGS } from '../data/projects';
+import Image from './Image';
 
 function Tag({ label, active, onClick }) {
   return (
@@ -24,7 +25,7 @@ function ProjectCard({ project, onOpen }) {
       className="group cursor-pointer rounded-2xl overflow-hidden border border-neutral-200 bg-white shadow-sm hover:shadow-md transition-shadow"
     >
       <div className="aspect-[16/10] overflow-hidden">
-        <img src={cover} alt={project.title} className="h-full w-full object-cover group-hover:scale-105 transition-transform" />
+        <Image src={cover} alt={project.title} className="h-full w-full object-cover group-hover:scale-105 transition-transform" rounded={false} />
       </div>
       <div className="p-4">
         <div className="flex flex-wrap gap-1 mb-2">
@@ -66,7 +67,7 @@ function ProjectModal({ project, onClose }) {
       >
         <div className="relative w-full aspect-[16/9] bg-neutral-100">
           {photos.length > 0 && (
-            <img src={photos[idx]} alt={project.title} className="h-full w-full object-cover" />
+            <Image src={photos[idx]} alt={project.title} className="h-full w-full object-cover" rounded={false} />
           )}
           {photos.length > 1 && (
             <>

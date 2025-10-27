@@ -1,5 +1,6 @@
 import React from 'react';
 import { siteContent } from '../data/content';
+import Image from './Image';
 
 export default function Contact() {
   return (
@@ -15,7 +16,7 @@ export default function Contact() {
               <li><strong>Werkgebied:</strong> {siteContent.serviceArea}</li>
             </ul>
             <div className="rounded-xl overflow-hidden">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
                 alt="Gereedschap"
                 className="w-full h-48 object-cover"

@@ -1,16 +1,18 @@
 import React from 'react';
 import { siteContent } from '../data/content';
+import Image from './Image';
 
 export default function Hero({ onCTAClick }) {
   return (
     <section id="home" className="relative">
       <div className="relative h-[60vh] sm:h-[70vh] w-full overflow-hidden rounded-b-3xl">
-        <img
+        <Image
           src={siteContent.hero.image}
           alt="Vakmanschap in uitvoering"
           className="h-full w-full object-cover"
+          rounded={false}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
         <div className="absolute inset-0 flex items-end">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-12">
             <h1 className="text-white text-3xl sm:text-5xl font-semibold max-w-3xl">
@@ -46,8 +48,11 @@ export default function Hero({ onCTAClick }) {
           </div>
           <div className="grid grid-cols-3 gap-3">
             {siteContent.about.serviceImages.map((src, idx) => (
-              <div key={idx} className={"overflow-hidden rounded-2xl border border-neutral-200 " + (idx === 1 ? 'col-span-2' : '')}>
-                <img src={src} alt="Service" className="h-48 w-full object-cover hover:scale-105 transition-transform" />
+              <div
+                key={idx}
+                className={(idx === 1 ? 'col-span-2 ' : '') + 'overflow-hidden rounded-2xl border border-neutral-200'}
+              >
+                <Image src={src} alt="Service" className="h-48 w-full object-cover" />
               </div>
             ))}
           </div>
